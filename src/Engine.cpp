@@ -1,9 +1,14 @@
 #include "Engine.hpp"
 #include <SDL2/SDL.h>
+#include <fmt/format.h>
 
 Engine::Engine() : m_active(true)
 {
-    SDL_Init(SDL_INIT_VIDEO);
+    int ret = SDL_Init(SDL_INIT_VIDEO);
+    if (ret != 0)
+    {
+        throw Error{fmt::format("SDL init failed: {}", SDL_GetError())};
+    }
 }
 
 Engine::~Engine()
@@ -52,7 +57,12 @@ void Engine::Loop()
             HandleEvent(e);
         }
 
-        SDL_RenderClear(m_renderer);
+        int ret = SDL_RenderClear(m_renderer);
+        if (ret != 0)
+        {
+            throw Error{fmt::format("Clearing SDL renderer failed: {}",
+                                    SDL_GetError())};
+        }
         Draw();
         SDL_RenderPresent(m_renderer);
     }
@@ -64,7 +74,12 @@ void Engine::HandleEvent(const SDL_Event &event)
 
 void Engine::Clear(const Color &clearColor)
 {
-    SDL_SetRenderDrawColor(m_renderer, clearColor.r, clearColor.g, clearColor.b,
-                           clearColor.a);
+    int ret = SDL_SetRenderDrawColor(m_renderer, clearColor.r, clearColor.g,
+                                     clearColor.b, clearColor.a);
+    if (ret != 0)
+    {
+        throw Error{fmt::format("Setting SDL renderer draw color failed: {}",
+                                SDL_GetError())};
+    }
     SDL_RenderClear(m_renderer);
 }
