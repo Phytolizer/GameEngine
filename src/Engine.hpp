@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Engine/Color.hpp"
-#include "Engine/Error.hpp"
+#include "Color.hpp"
+#include "Error.hpp"
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
 
