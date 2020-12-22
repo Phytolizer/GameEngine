@@ -2,12 +2,28 @@
 #include <SDL2/SDL.h>
 #include <fmt/format.h>
 
-Engine::Engine() : m_active(true)
+Engine::Engine(std::string_view title, int windowWidth, int windowHeight)
+    : m_active(true), m_window(nullptr), m_renderer(nullptr)
 {
     int ret = SDL_Init(SDL_INIT_VIDEO);
     if (ret != 0)
     {
         throw Error{fmt::format("SDL init failed: {}", SDL_GetError())};
+    }
+    m_window =
+        SDL_CreateWindow(title.data(), SDL_WINDOWPOS_UNDEFINED,
+                         SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, 0);
+    if (m_window == nullptr)
+    {
+        throw Error{
+            fmt::format("Creating SDL window failed: {}", SDL_GetError())};
+    }
+    m_renderer = SDL_CreateRenderer(
+        m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (m_renderer == nullptr)
+    {
+        throw Error{fmt::format(
+            "Creating SDL HW-accelerated renderer failed: {}", SDL_GetError())};
     }
 }
 
