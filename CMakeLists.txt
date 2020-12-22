@@ -12,7 +12,7 @@ add_library(game-engine src/game-engine.cpp src/Engine.hpp src/Engine.cpp src/En
 find_package(SDL2 CONFIG REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
 find_package(sdl2-gfx CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} SDL2::SDL2main SDL2::SDL2-static SDL2::SDL2_gfx SDL2::SDL2_image)
+target_link_libraries(${PROJECT_NAME} PUBLIC SDL2::SDL2main SDL2::SDL2-static SDL2::SDL2_gfx SDL2::SDL2_image)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
