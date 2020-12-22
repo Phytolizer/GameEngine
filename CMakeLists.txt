@@ -14,6 +14,12 @@ find_package(sdl2-image CONFIG REQUIRED)
 find_package(sdl2-gfx CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC SDL2::SDL2main SDL2::SDL2-static SDL2::SDL2_gfx SDL2::SDL2_image)
 target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/src")
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "src/Engine.hpp")
+
+install(TARGETS ${PROJECT_NAME} 
+        PUBLIC_HEADER DESTINATION include/GameEngine
+        LIBRARY DESTINATION lib
+)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
