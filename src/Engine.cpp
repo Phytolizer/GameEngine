@@ -1,5 +1,6 @@
 #include "Engine.hpp"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 #include <fmt/format.h>
 
 Engine::Engine(std::string_view title, int windowWidth, int windowHeight)
@@ -98,4 +99,55 @@ void Engine::Clear(const Color &clearColor)
                                 SDL_GetError())};
     }
     SDL_RenderClear(m_renderer);
+}
+
+void Engine::DrawLine(const glm::vec2 &start, const glm::vec2 &end,
+                      const Color &color)
+{
+    glm::vec4 start4(start, 0.0f, 1.0f);
+    glm::vec4 end4(end, 0.0f, 1.0f);
+
+    start4 = m_matrixStack.Top() * start4;
+    end4 = m_matrixStack.Top() * end4;
+
+    int ret = aalineRGBA(m_renderer, start4.x, start4.y, end4.x, end4.y,
+                         color.r, color.g, color.b, color.a);
+    if (ret != 0)
+    {
+        throw Error{fmt::format("Drawing anti-aliased line failed: {}",
+                                SDL_GetError())};
+    }
+}
+void Engine::DrawRectangle(const glm::vec2 &topLeft,
+                           const glm::vec2 &bottomRight, const Color &color)
+{
+    // oh god
+}
+
+void Engine::DrawCircle(const glm::vec2 &center, float radius,
+                        const Color &color)
+{
+    int ret = circleRGBA(m_renderer, center.x, center.y, radius, color.r,
+                         color.g, color.b, color.a);
+    if (ret != 0)
+    {
+        throw Error{fmt::format("Drawing circle failed: {}", SDL_GetError())};
+    }
+}
+
+void Engine::Translate(const glm::vec2 &where)
+{
+    m_matrixStack.Translate(where);
+}
+void Engine::Rotate(float theta)
+{
+    m_matrixStack.Rotate(theta);
+}
+void Engine::Scale(const glm::vec2 &scale)
+{
+    m_matrixStack.Scale(scale);
+}
+void Engine::Scale(float scale)
+{
+    Scale({scale, scale});
 }
