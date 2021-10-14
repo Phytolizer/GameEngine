@@ -1,9 +1,17 @@
 #include "MatrixStack.hpp"
 #include <glm/gtc/matrix_transform.hpp>
-MatrixStack::MatrixStack() = default;
+MatrixStack::MatrixStack() : m_matrices()
+{
+    m_matrices.push(glm::mat4(1.0f));
+}
+void MatrixStack::Reset()
+{
+    m_matrices = std::stack<glm::mat4>{};
+    m_matrices.push(glm::mat4(1.0f));
+}
 void MatrixStack::Push()
 {
-    m_matrices.push(glm::mat3(1.0f));
+    m_matrices.push(Top());
 }
 void MatrixStack::Pop()
 {

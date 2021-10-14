@@ -9,6 +9,7 @@ class MatrixStack
 
   public:
     MatrixStack();
+    void Reset();
     void Push();
     void Pop();
     void Translate(glm::vec2 where);
