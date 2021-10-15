@@ -4,8 +4,8 @@
 #include "Error.hpp"
 #include "MatrixStack.hpp"
 #include "Timer.hpp"
-#include <SDL_events.h>
-#include <SDL_render.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_render.h>
 #include <glm/glm.hpp>
 #include <random>
 #include <string_view>

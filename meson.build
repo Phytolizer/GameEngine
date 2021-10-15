@@ -28,5 +28,7 @@ if not fmt_dep.found()
 	fmt_dep = fmt_proj.dependency('fmt')
 endif
 
+incdir = include_directories('include')
+
 subdir('src')
 

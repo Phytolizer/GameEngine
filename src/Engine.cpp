@@ -1,8 +1,8 @@
-#include "Engine.hpp"
-#include <SDL.h>
-#include <SDL2_gfxPrimitives.h>
-#include <SDL_error.h>
-#include <SDL_video.h>
+#include "GameEngine/Engine.hpp"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
+#include <SDL2/SDL_error.h>
+#include <SDL2/SDL_video.h>
 #include <fmt/format.h>
 
 Engine::Engine(std::string_view title, int windowWidth, int windowHeight)
