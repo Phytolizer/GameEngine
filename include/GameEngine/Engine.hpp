@@ -24,7 +24,7 @@ class Engine
 
   public:
     Engine(std::string_view title, int windowWidth, int windowHeight);
-    ~Engine();
+    virtual ~Engine();
     Engine(const Engine &) = delete;
     Engine(Engine &&);
     Engine &operator=(const Engine &) = delete;
