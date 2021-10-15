@@ -4,8 +4,8 @@
 
 class Timer
 {
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_lastTick;
     float m_interval;
+    std::chrono::time_point<std::chrono::high_resolution_clock> m_lastTick;
 
   public:
     explicit Timer(float interval);
